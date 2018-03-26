@@ -279,7 +279,7 @@ class AlphaBetaPlayer(IsolationPlayer):
         if self.time_left() < self.TIMER_THRESHOLD:
             raise SearchTimeout()
             
-        return depth==0
+        return depth==0 or not game.get_legal_moves()
                 
 
     def min_value(self,game,depth,alpha,beta):
@@ -335,7 +335,7 @@ class AlphaBetaPlayer(IsolationPlayer):
                 best_score = v                   
                 best_move = m
                 
-            aplha=max(alpha,best_score)
+            alpha=max(alpha,best_score)
             
 
         return best_move 
