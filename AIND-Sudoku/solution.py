@@ -15,18 +15,16 @@ diagonal2= [boxes[num1*i] for i in range(1,10)]
 diagonal= [diagonal1,diagonal2]
 unitlist = row_units + column_units + square_units +diagonal
 
-# TODO: Update the unit list to add the new diagonal units
 unitlist = unitlist
 
 
-# Must be called after all units (including diagonals) are added to the unitlist
 units = extract_units(unitlist, boxes)
 peers = extract_peers(units, boxes)
 
 
 def naked_twins(values):
 
-    """Eliminate values using the naked twins strategy.
+    """
 
     Parameters
     ----------
@@ -37,20 +35,6 @@ def naked_twins(values):
     -------
     dict
         The values dictionary with the naked twins eliminated from peers
-
-    Notes
-    -----
-    Your solution can either process all pairs of naked twins from the input once,
-    or it can continue processing pairs of naked twins until there are no such
-    pairs remaining -- the project assistant test suite will accept either
-    convention. However, it will not accept code that does not process all pairs
-    of naked twins from the original input. (For example, if you start processing
-    pairs of twins and eliminate another pair of twins before the second pair
-    is processed then your code will fail the PA test suite.)
-
-    The first convention is preferred for consistency with the other strategies,
-    and because it is simpler (since the reduce_puzzle function already calls this
-    strategy repeatedly).
    """
     num=[]
     twins=[]
@@ -59,8 +43,6 @@ def naked_twins(values):
     for box in boxes:
         if len(values[box])==2:
             num.append(box)
-
-    #finding naked twin pairs
     
     for box1 in num:
         for box2 in peers[box1]:
@@ -72,11 +54,7 @@ def naked_twins(values):
         box1,box2=twins[i][0],twins[i][1]
 
         peers1,peers2= set(peers[box1]),set(peers[box2])
-        naked_twins_peers= peers1.intersection(peers2)  #thanks to mentor for this suggestion
-        
-        #naked_twins_peers= reduce(or_, [peers1,peers2])
-
-    #
+        naked_twins_peers= peers1.intersection(peers2)  
         for peer in naked_twins_peers:
             if len(values[peer])>1:
                 for digit in values[box1]:
@@ -91,11 +69,7 @@ def naked_twins(values):
 
 
 def eliminate(values):
-    """Apply the eliminate strategy to a Sudoku puzzle
-
-    The eliminate strategy says that if a box has a value assigned, then none
-    of the peers of that box can have the same value.
-
+    """
     Parameters
     ----------
     values(dict)
@@ -106,7 +80,7 @@ def eliminate(values):
     dict
         The values dictionary with the assigned values eliminated from peers
     """
-    # TODO: Copy your code from the classroom to complete this function
+    
     x = [s for s in values.keys() if len(values[s]) == 1]
     for s in x:
         digit = values[s]
@@ -120,11 +94,7 @@ def eliminate(values):
 
 
 def only_choice(values):
-    """Apply the only choice strategy to a Sudoku puzzle
-
-    The only choice strategy says that if only one box in a unit allows a certain
-    digit, then that box must be assigned that digit.
-
+    """
     Parameters
     ----------
     values(dict)
@@ -135,11 +105,8 @@ def only_choice(values):
     dict
         The values dictionary with all single-valued boxes assigned
 
-    Notes
-    -----
-    You should be able to complete this function by copying your code from the classroom
+   
     """
-    # TODO: Copy your code from the classroom to complete this function
     for unit in unitlist:
         for digit in cols:
             dp= [s for s in unit if digit in values[s]]
@@ -151,7 +118,7 @@ def only_choice(values):
 
 
 def reduce_puzzle(values):
-    """Reduce a Sudoku puzzle by repeatedly applying all constraint strategies
+    """
 
     Parameters
     ----------
@@ -164,7 +131,6 @@ def reduce_puzzle(values):
         The values dictionary after continued application of the constraint strategies
         no longer produces any changes, or False if the puzzle is unsolvable 
     """
-    # TODO: Copy your code from the classroom and modify it to complete this function
     stalled = False
     while not stalled:
         # Check how many boxes have a determined value
@@ -188,9 +154,7 @@ def reduce_puzzle(values):
 
 
 def search(values):
-    """Apply depth first search to solve Sudoku puzzles in order to solve puzzles
-    that cannot be solved by repeated reduction alone.
-
+    """
     Parameters
     ----------
     values(dict)
@@ -201,13 +165,8 @@ def search(values):
     dict or False
         The values dictionary with all boxes assigned or False
 
-    Notes
-    -----
-    You should be able to complete this function by copying your code from the classroom
-    and extending it to call the naked twins strategy.
+  
     """
-    # TODO: Copy your code from the classroom to complete this function
-      
     values= reduce_puzzle(values)
    
     if values is False:
@@ -225,8 +184,7 @@ def search(values):
 
 
 def solve(grid):
-    """Find the solution to a Sudoku puzzle using search and constraint propagation
-
+    """
     Parameters
     ----------
     grid(string)
