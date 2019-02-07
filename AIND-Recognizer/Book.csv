@@ -1,0 +1,11 @@
+Problem,Search,Time Elapsed (sec),Plan Length ,Nodes Expanded ,Goal Tests,Optimal
+1,BFS,24.29,6,43,56,Yes
+1,DFS,6.48,12,12,12,No
+1,UCS,26.225,6,55,57,Yes
+2,BFS,5574.9,9,3342,4609,Yes
+2,DFS,2097.27,575,582,583,No
+2,UCS,7734.48,9,4853,4855,Yes
+3,BFS,27594.278,12,14663,18098,Yes
+3,DFS,8076.1,1451,1501,1502,No
+3,UCS,34844.6,12,18223,18225,Yes
+,,,,,,,
